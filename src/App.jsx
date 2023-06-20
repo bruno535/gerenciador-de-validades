@@ -12,7 +12,7 @@ const App = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('http://localhost:4000/products', {
+      const response = await fetch('https://server-chi-wine.vercel.app/products', {
         method: 'GET',
         headers: {
           accept: 'application/json',
@@ -71,7 +71,7 @@ const App = () => {
     };
 
     try {
-      await fetch('http://localhost:4000/products', {
+      await fetch('https://server-chi-wine.vercel.app/products', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ const App = () => {
 
   const removeProduct = async (id) => {
     try {
-      await fetch(`http://localhost:4000/products/${id}`, {
+      await fetch(`https://server-chi-wine.vercel.app/products/${id}`, {
         method: 'DELETE',
       });
 
