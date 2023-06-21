@@ -1,6 +1,6 @@
 body {
-  background-color: #002797;
-  color: white;
+  background-color: #f3f3f3;
+  color: #333;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -12,52 +12,61 @@ body {
 }
 
 h1 {
-  color: #6ba3f4;
+  color: #333;
+  margin-bottom: 30px;
 }
 
 form {
-  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
 }
 
 label {
   display: block;
   margin-bottom: 10px;
+  font-size: 18px;
+  text-align: center;
+  width: 100%;
+  max-width: 300px;
 }
 
 input[type='text'] {
-  padding: 5px;
+  padding: 10px;
   width: 100%;
-  max-width: 200px;
+  max-width: 300px;
+  font-size: 16px;
+  border-radius: 6px;
+  text-align: center;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
 button {
-  padding: 5px 10px;
+  padding: 10px 20px;
   background-color: #6ba3f4;
   color: white;
   border: none;
   cursor: pointer;
-  border-radius: 20px;
-  font-size: 20px;
+  border-radius: 6px;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  max-width: 300px;
 }
 
 button:hover {
-  background-color: #1136aa;
+  background-color: #4b8fe7;
 }
 
 h2 {
-  color: #6ba3f4;
-  font-weight: 700;
-}
-
-input {
-  background-color: #002797;
-  color: white;
-  border: 1px solid #1136aa;
-  border-radius: 20px;
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 ul {
@@ -68,27 +77,69 @@ ul {
 li {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: #6ba3f4;
+  justify-content: space-between;
+  color: #333;
   margin-bottom: 10px;
-  border-radius: 20px;
-  font-size: 30px;
-  font-weight: 700;
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 18px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 li button {
-  background-color: #002797;
+  background-color: #f44336;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
 }
 
 li button:hover {
-  margin-left: 10px;
-  background-color: #6ba3f4;
-  color: white;
-  border: none;
-  cursor: pointer;
+  background-color: #d32f2f;
 }
 
 /* Responsivo para dispositivos móveis */
 @media only screen and (max-width: 600px) {
-  /* Adicione aqui suas regras de estilo para dispositivos móveis */
+  .container {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  label {
+    font-size: 16px;
+  }
+
+  input[type='text'] {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  button {
+    padding: 8px 16px;
+    font-size: 16px;
+  }
+
+  h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  li {
+    font-size: 16px;
+    padding: 8px;
+  }
+
+  li button {
+    padding: 4px 8px;
+    font-size: 12px;
+    width: 100px;
+  }
 }
