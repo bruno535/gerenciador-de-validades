@@ -90,12 +90,13 @@ const App = () => {
 
   const getColor = (dateString) => {
     const currentDate = new Date();
-    const productDate = new Date(dateString);
-
-    const differenceInDays = Math.floor(
-      (productDate - currentDate) / (1000 * 60 * 60 * 24)
-    );
-
+    
+    const [day, month, year] = dateString.split('/');
+    const formattedDateString = `${month}/${day}/${year}`;
+    const productDate = new Date(formattedDateString);
+  
+    const differenceInDays = Math.floor((productDate - currentDate) / (1000 * 60 * 60 * 24));
+  
     if (differenceInDays > 60) {
       return 'green';
     } else if (differenceInDays > 15) {
