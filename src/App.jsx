@@ -12,7 +12,7 @@ const App = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('https://server-gamma-seven.vercel.app/products', {
+      const response = await fetch('https://server-gray-two.vercel.app/products', {
         method: 'GET',
         headers: {
           accept: 'application/json',
@@ -71,7 +71,7 @@ const App = () => {
     };
 
     try {
-      await fetch('https://server-gamma-seven.vercel.app/products', {
+      await fetch('https://server-gray-two.vercel.app/products', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ const App = () => {
 
   const removeProduct = async (id) => {
     try {
-      await fetch(`https://server-gamma-seven.vercel.app/products/${id}`, {
+      await fetch(`https://server-gray-two.vercel.app/products/${id}`, {
         method: 'DELETE',
       });
 
