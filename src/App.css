@@ -1,5 +1,7 @@
 body {
-  background-color: white;
+  background-color: #002797;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .container {
@@ -10,13 +12,13 @@ body {
 }
 
 h1 {
-  color: red;
+  color: #6ba3f4;
 }
 
 form {
   margin-bottom: 20px;
-  flex-direction: column;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -34,14 +36,28 @@ input[type='text'] {
 
 button {
   padding: 5px 10px;
-  background-color: red;
+  background-color: #6ba3f4;
   color: white;
   border: none;
   cursor: pointer;
+  border-radius: 20px;
+  font-size: 20px;
+}
+
+button:hover {
+  background-color: #1136aa;
 }
 
 h2 {
-  color: red;
+  color: #6ba3f4;
+  font-weight: 700;
+}
+
+input {
+  background-color: #002797;
+  color: white;
+  border: 1px solid #1136aa;
+  border-radius: 20px;
 }
 
 ul {
@@ -53,17 +69,20 @@ li {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: red;
+  color: #6ba3f4;
   margin-bottom: 10px;
+  border-radius: 20px;
+  font-size: 30px;
+  font-weight: 700;
 }
 
 li button {
-  background-color: silver;
+  background-color: #002797;
 }
 
 li button:hover {
   margin-left: 10px;
-  background-color: red;
+  background-color: #6ba3f4;
   color: white;
   border: none;
   cursor: pointer;
@@ -71,5 +90,5 @@ li button:hover {
 
 /* Responsivo para dispositivos móveis */
 @media only screen and (max-width: 600px) {
- 
+  /* Adicione aqui suas regras de estilo para dispositivos móveis */
 }
