@@ -90,13 +90,13 @@ const App = () => {
 
   const getColor = (dateString) => {
     const currentDate = new Date();
-    
+
     const [day, month, year] = dateString.split('/');
     const formattedDateString = `${month}/${day}/${year}`;
     const productDate = new Date(formattedDateString);
-  
+
     const differenceInDays = Math.floor((productDate - currentDate) / (1000 * 60 * 60 * 24));
-  
+
     if (differenceInDays > 60) {
       return 'green';
     } else if (differenceInDays > 15) {
@@ -113,6 +113,10 @@ const App = () => {
     return dateA - dateB;
   });
 
+  const handleReload = () => {
+    window.location.reload();
+  };
+
   return (
     <div className="container">
       <h1>Gerenciador de Data de Validade</h1>
@@ -128,6 +132,7 @@ const App = () => {
         <button type="submit">Adicionar Produto</button>
       </form>
       <h2>Lista de Produtos</h2>
+      <button onClick={handleReload}>Atualizar</button>
       {loading ? (
         <p>Carregando produtos...</p>
       ) : (
