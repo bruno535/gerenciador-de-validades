@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 
 const App = () => {
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     try {
       const response = await fetch('https://server-gray-two.vercel.app/products', {
         method: 'GET',
@@ -20,10 +17,15 @@ const App = () => {
       });
       const data = await response.json();
       setProducts(data);
+      setLoading(false);
     } catch (error) {
-      console.error('(App)Error fetching products:', error);
+      console.error('(App) Error fetching products:', error);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -73,7 +75,7 @@ const App = () => {
     }
   };
 
-  const removeProduct = async (id) => {
+  const removeProduct = useCallback(async (id) => {
     try {
       await fetch(`https://server-gray-two.vercel.app/products/${id}`, {
         method: 'DELETE',
@@ -84,13 +86,11 @@ const App = () => {
     } catch (error) {
       console.error('Error removing product:', error);
     }
-  };
+  }, [products]);
 
   const getColor = (dateString) => {
     const currentDate = new Date();
-    const [day, month, year] = dateString.split('/');
-
-    const productDate = new Date(year, month - 1, day);
+    const productDate = new Date(dateString);
 
     const differenceInDays = Math.floor(
       (productDate - currentDate) / (1000 * 60 * 60 * 24)
@@ -106,12 +106,10 @@ const App = () => {
   };
 
   const sortedProducts = [...products].sort((a, b) => {
-    const [dayA, monthA, yearA] = a.date.split('/');
-    const [dayB, monthB, yearB] = b.date.split('/');
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
 
-    return (
-      new Date(yearA, monthA - 1, dayA) - new Date(yearB, monthB - 1, dayB)
-    );
+    return dateA - dateB;
   });
 
   return (
@@ -129,14 +127,21 @@ const App = () => {
         <button type="submit">Adicionar Produto</button>
       </form>
       <h2>Lista de Produtos</h2>
-      <ul className="lista">
-        {sortedProducts.map((product, index) => (
-          <li key={index} style={{color:'white', backgroundColor: getColor(product.date) }}>
-            {product.name} - {product.date}
-            <button onClick={() => removeProduct(product._id)}>Remover</button>
-          </li>
-        ))}
-      </ul>
+      {loading ? (
+        <p>Carregando produtos...</p>
+      ) : (
+        <ul className="lista">
+          {sortedProducts.map((product, index) => (
+            <li
+              key={index}
+              style={{ color: 'white', backgroundColor: getColor(product.date) }}
+            >
+              {product.name} - {product.date}
+              <button onClick={() => removeProduct(product._id)}>Remover</button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
