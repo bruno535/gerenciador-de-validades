@@ -30,21 +30,7 @@ const App = () => {
   };
 
   const handleDateChange = (event) => {
-    const formattedDate = event.target.value.replace(/\D/g, '');
-    setDate(formattedDate);
-  };
-
-  const formatDateString = (input) => {
-    const numericInput = input.replace(/\D/g, '');
-
-    if (numericInput.length === 8) {
-      const day = numericInput.substr(0, 2);
-      const month = numericInput.substr(2, 2);
-      const year = numericInput.substr(4, 4);
-      return `${day}/${month}/${year}`;
-    }
-
-    return input;
+    setDate(event.target.value);
   };
 
   const handleSubmit = async (event) => {
@@ -145,7 +131,7 @@ const App = () => {
       <h2>Lista de Produtos</h2>
       <ul className="lista">
         {sortedProducts.map((product, index) => (
-          <li key={index} style={{ color: getColor(product.date) }}>
+          <li key={index} style={{color:'white', backgroundColor: getColor(product.date) }}>
             {product.name} - {product.date}
             <button onClick={() => removeProduct(product._id)}>Remover</button>
           </li>
