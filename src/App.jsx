@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 
 const App = () => {
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [sortBy, setSortBy] = useState('date');
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:4000/products', {
+      const response = await fetch('https://server-gray-two.vercel.app/products', {
         method: 'GET',
         headers: {
           accept: 'application/json',
@@ -20,31 +18,24 @@ const App = () => {
       });
       const data = await response.json();
       setProducts(data);
+      setLoading(false);
     } catch (error) {
-      console.error('(App)Error fetching products:', error);
+      console.error('(App) Error fetching products:', error);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
 
   const handleDateChange = (event) => {
-    const formattedDate = event.target.value.replace(/\D/g, '');
-    setDate(formattedDate);
-  };
-
-  const formatDateString = (input) => {
-    const numericInput = input.replace(/\D/g, '');
-
-    if (numericInput.length === 8) {
-      const day = numericInput.substr(0, 2);
-      const month = numericInput.substr(2, 2);
-      const year = numericInput.substr(4, 4);
-      return `${day}/${month}/${year}`;
-    }
-
-    return input;
+    let value = event.target.value;
+    value = value.replace(/[-\s]/g, "/");
+    setDate(value);
   };
 
   const handleSubmit = async (event) => {
@@ -71,7 +62,7 @@ const App = () => {
     };
 
     try {
-      await fetch('http://localhost:4000/products', {
+      await fetch('https://server-gray-two.vercel.app/products', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -87,9 +78,9 @@ const App = () => {
     }
   };
 
-  const removeProduct = async (id) => {
+  const removeProduct = useCallback(async (id) => {
     try {
-      await fetch(`http://localhost:4000/products/${id}`, {
+      await fetch(`https://server-gray-two.vercel.app/products/${id}`, {
         method: 'DELETE',
       });
 
@@ -98,17 +89,16 @@ const App = () => {
     } catch (error) {
       console.error('Error removing product:', error);
     }
-  };
+  }, [products]);
 
   const getColor = (dateString) => {
     const currentDate = new Date();
+
     const [day, month, year] = dateString.split('/');
+    const formattedDateString = `${month}/${day}/${year}`;
+    const productDate = new Date(formattedDateString);
 
-    const productDate = new Date(year, month - 1, day);
-
-    const differenceInDays = Math.floor(
-      (productDate - currentDate) / (1000 * 60 * 60 * 24)
-    );
+    const differenceInDays = Math.floor((productDate - currentDate) / (1000 * 60 * 60 * 24));
 
     if (differenceInDays > 60) {
       return 'green';
@@ -119,38 +109,65 @@ const App = () => {
     }
   };
 
-  const sortedProducts = [...products].sort((a, b) => {
-    const [dayA, monthA, yearA] = a.date.split('/');
-    const [dayB, monthB, yearB] = b.date.split('/');
+  const sortProducts = (a, b) => {
+    if (sortBy === 'name') {
+      return a.name.localeCompare(b.name);
+    } else if (sortBy === 'date') {
+      const dateA = new Date(a.date.split('/').reverse().join('/'));
+      const dateB = new Date(b.date.split('/').reverse().join('/'));
+      return dateA - dateB;
+    } else {
+      return 0;
+    }
+  };
 
-    return (
-      new Date(yearA, monthA - 1, dayA) - new Date(yearB, monthB - 1, dayB)
-    );
-  });
+  const handleSortChange = (event) => {
+    setSortBy(event.target.value);
+  };
+
+  const handleReload = () => {
+    window.location.reload();
+  };
+
+  const sortedProducts = [...products].sort(sortProducts);
 
   return (
     <div className="container">
-      <h1>Gerenciador de Data de Validade</h1>
+      <h1 className="heading1">Gerenciador de Data de Validade</h1>
       <form onSubmit={handleSubmit}>
-        <label>
+        <label className="label">
           Nome:
-          <input type="text" value={name} onChange={handleNameChange} />
+          <input type="text" value={name} onChange={handleNameChange} className="text-input" />
         </label>
-        <label>
+        <label className="label">
           Data (dd/mm/aaaa):
-          <input type="text" value={date} onChange={handleDateChange} />
+          <input type="text" value={date} onChange={handleDateChange} className="text-input" />
         </label>
-        <button type="submit">Adicionar Produto</button>
+        <button type="submit" className="button">Adicionar Produto</button>
       </form>
-      <h2>Lista de Produtos</h2>
-      <ul className="lista">
-        {sortedProducts.map((product, index) => (
-          <li key={index} style={{ color: getColor(product.date) }}>
-            {product.name} - {product.date}
-            <button onClick={() => removeProduct(product._id)}>Remover</button>
-          </li>
-        ))}
-      </ul>
+      <h2 className="heading2">Lista de Produtos</h2>
+      <div className='container-orderby'>
+        <select value={sortBy} onChange={handleSortChange} className="select-input">
+          <option value="date">Ordenar por Data</option>
+          <option value="name">Ordenar por Nome</option>
+        </select>
+        <button onClick={handleReload} className="button">Atualizar</button>
+      </div>
+      {loading ? (
+        <p>Carregando produtos...</p>
+      ) : (
+        <ul className="lista">
+          {sortedProducts.map((product, index) => (
+            <li key={index} style={{ backgroundColor: getColor(product.date) }} className="list-item">
+              <div className="product-info">
+                <div className="product-name">{product.name}</div>
+                <div className="product-date">{product.date}</div>
+              </div>
+              <button onClick={() => removeProduct(product._id)} className="button">Remover</button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
