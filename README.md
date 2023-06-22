@@ -1,55 +1,70 @@
-# Gerenciador de Data de Validade
+# Getting Started with Create React App
 
-Um aplicativo React para gerenciar a data de validade de produtos.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Funcionalidades
+## Available Scripts
 
-- Adicionar um produto com nome e data de validade
-- Listar os produtos ordenados por data ou nome
-- Remover um produto da lista
+In the project directory, you can run:
 
-## Pré-requisitos
+### `npm start`
 
-- Node.js (v12 ou superior)
-- npm ou yarn
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-## Instalação
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-1. Clone o repositório para o seu ambiente local.
+### `npm test`
 
-```shell
-git clone https://github.com/seu-usuario/seu-repositorio.git
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Navegue até o diretório do projeto.
+### `npm run build`
 
-cd seu-repositorio
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-Instale as dependências.
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-npm install ou yarn install
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-Uso
+### `npm run eject`
 
-Inicie o servidor de desenvolvimento.
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-npm start ou yarn start 
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Abra o navegador e visite http://localhost:3000 para visualizar o aplicativo.
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-Preencha o nome e a data de validade do produto no formulário e clique em "Adicionar Produto" para adicionar um novo produto à lista.
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-Os produtos serão exibidos na lista, ordenados por data ou nome, dependendo da opção selecionada.
+## Learn More
 
-Para remover um produto, clique no botão "Remover" ao lado do produto desejado.
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-Personalização
-Você pode personalizar a aparência e o comportamento do aplicativo ajustando as classes CSS e modificando o código no arquivo App.js.
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-Contribuição
-Contribuições são bem-vindas! Se você encontrar algum problema, tiver alguma sugestão ou desejar adicionar recursos, sinta-se à vontade para abrir uma "issue" ou enviar uma solicitação de "pull request".
+### Code Splitting
 
-Licença
-Este projeto está licenciado sob a MIT License.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
+### Analyzing the Bundle Size
 
-Certifique-se de substituir as informações relevantes, como o link do repositório, pré-requisitos, instruções de instalação, uso, personalização, contribuição e licença com as informações corretas para o seu projeto.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

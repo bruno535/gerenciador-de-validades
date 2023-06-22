@@ -6,10 +6,7 @@ const App = () => {
   const [date, setDate] = useState('');
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-<<<<<<< HEAD
   const [sortBy, setSortBy] = useState('date');
-=======
->>>>>>> 884b5c2dabc5c252c2f6158ac9bd9bd75207aef1
 
   const fetchProducts = useCallback(async () => {
     try {
@@ -36,13 +33,9 @@ const App = () => {
   };
 
   const handleDateChange = (event) => {
-<<<<<<< HEAD
     let value = event.target.value;
     value = value.replace(/[-\s]/g, "/");
     setDate(value);
-=======
-    setDate(event.target.value);
->>>>>>> 884b5c2dabc5c252c2f6158ac9bd9bd75207aef1
   };
 
   const handleSubmit = async (event) => {
@@ -116,7 +109,6 @@ const App = () => {
     }
   };
 
-<<<<<<< HEAD
   const sortProducts = (a, b) => {
     if (sortBy === 'name') {
       return a.name.localeCompare(b.name);
@@ -138,18 +130,6 @@ const App = () => {
   };
 
   const sortedProducts = [...products].sort(sortProducts);
-=======
-  const sortedProducts = [...products].sort((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
-
-    return dateA - dateB;
-  });
->>>>>>> 884b5c2dabc5c252c2f6158ac9bd9bd75207aef1
-
-  const handleReload = () => {
-    window.location.reload();
-  };
 
   return (
     <div className="container">
@@ -165,7 +145,6 @@ const App = () => {
         </label>
         <button type="submit" className="button">Adicionar Produto</button>
       </form>
-<<<<<<< HEAD
       <h2 className="heading2">Lista de Produtos</h2>
       <div className='container-orderby'>
         <select value={sortBy} onChange={handleSortChange} className="select-input">
@@ -174,30 +153,17 @@ const App = () => {
         </select>
         <button onClick={handleReload} className="button">Atualizar</button>
       </div>
-=======
-      <h2>Lista de Produtos</h2>
-      <button onClick={handleReload}>Atualizar</button>
->>>>>>> 884b5c2dabc5c252c2f6158ac9bd9bd75207aef1
       {loading ? (
         <p>Carregando produtos...</p>
       ) : (
         <ul className="lista">
           {sortedProducts.map((product, index) => (
-<<<<<<< HEAD
             <li key={index} style={{ backgroundColor: getColor(product.date) }} className="list-item">
               <div className="product-info">
                 <div className="product-name">{product.name}</div>
                 <div className="product-date">{product.date}</div>
               </div>
               <button onClick={() => removeProduct(product._id)} className="button">Remover</button>
-=======
-            <li
-              key={index}
-              style={{ color: 'white', backgroundColor: getColor(product.date) }}
-            >
-              {product.name} - {product.date}
-              <button onClick={() => removeProduct(product._id)}>Remover</button>
->>>>>>> 884b5c2dabc5c252c2f6158ac9bd9bd75207aef1
             </li>
           ))}
         </ul>
