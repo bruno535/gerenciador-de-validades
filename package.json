@@ -2,10 +2,13 @@
   "name": "gerenciador-de-validade",
   "version": "0.1.0",
   "private": true,
+<<<<<<< HEAD
   "type": "module",
   "engines": {
     "node": "14.x"
   },
+=======
+>>>>>>> 884b5c2dabc5c252c2f6158ac9bd9bd75207aef1
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
