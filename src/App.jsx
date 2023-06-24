@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
+import ProductList from './components/ProductList';
+import AddProductForm from './components/AddProductForm';
 
 const App = () => {
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [sortBy, setSortBy] = useState('date');
 
   const fetchProducts = useCallback(async () => {
     try {
@@ -17,7 +18,12 @@ const App = () => {
         },
       });
       const data = await response.json();
-      setProducts(data);
+      const sortedData = data.sort((a, b) => {
+        const dateA = new Date(a.date.split('/').reverse().join('/'));
+        const dateB = new Date(b.date.split('/').reverse().join('/'));
+        return dateA - dateB;
+      });
+      setProducts(sortedData);
       setLoading(false);
     } catch (error) {
       console.error('(App) Error fetching products:', error);
@@ -34,7 +40,7 @@ const App = () => {
 
   const handleDateChange = (event) => {
     let value = event.target.value;
-    value = value.replace(/[-\s]/g, "/");
+    value = value.replace(/[-\s]/g, '/');
     setDate(value);
   };
 
@@ -101,72 +107,33 @@ const App = () => {
     const differenceInDays = Math.floor((productDate - currentDate) / (1000 * 60 * 60 * 24));
 
     if (differenceInDays > 60) {
-      return 'green';
+      return '#00B300';
     } else if (differenceInDays > 15) {
-      return 'orange';
+      return '#ffb36e';
     } else {
-      return 'red';
+      return '#FF6A33';
     }
   };
-
-  const sortProducts = (a, b) => {
-    if (sortBy === 'name') {
-      return a.name.localeCompare(b.name);
-    } else if (sortBy === 'date') {
-      const dateA = new Date(a.date.split('/').reverse().join('/'));
-      const dateB = new Date(b.date.split('/').reverse().join('/'));
-      return dateA - dateB;
-    } else {
-      return 0;
-    }
-  };
-
-  const handleSortChange = (event) => {
-    setSortBy(event.target.value);
-  };
-
-  const handleReload = () => {
-    window.location.reload();
-  };
-
-  const sortedProducts = [...products].sort(sortProducts);
 
   return (
     <div className="container">
       <h1 className="heading1">Gerenciador de Data de Validade</h1>
-      <form onSubmit={handleSubmit}>
-        <label className="label">
-          Nome:
-          <input type="text" value={name} onChange={handleNameChange} className="text-input" />
-        </label>
-        <label className="label">
-          Data (dd/mm/aaaa):
-          <input type="text" value={date} onChange={handleDateChange} className="text-input" />
-        </label>
-        <button type="submit" className="button">Adicionar Produto</button>
-      </form>
+      <AddProductForm
+        name={name}
+        date={date}
+        handleNameChange={handleNameChange}
+        handleDateChange={handleDateChange}
+        handleSubmit={handleSubmit}
+      />
       <h2 className="heading2">Lista de Produtos</h2>
-      <div className='container-orderby'>
-        <select value={sortBy} onChange={handleSortChange} className="select-input">
-          <option value="date">Ordenar por Data</option>
-          <option value="name">Ordenar por Nome</option>
-        </select>
-        <button onClick={handleReload} className="button">Atualizar</button>
-      </div>
       {loading ? (
         <p>Carregando produtos...</p>
       ) : (
-        <ul className="lista">
-          {sortedProducts.map((product, index) => (
-            <li key={index} style={{ backgroundColor: getColor(product.date) }} className="list-item">
-              <div className="product-info">
-                <div className="product-name">{product.name}</div>
-                <div className="product-date">{product.date}</div>
-              </div>
-              <button onClick={() => removeProduct(product._id)} className="button">Remover</button>
-            </li>
-          ))}
-        </ul>
+        <ProductList
+          products={products}
+          removeProduct={removeProduct}
+          getColor={getColor}
+        />
       )}
     </div>
   );
